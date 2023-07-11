@@ -65,6 +65,8 @@ public class Nykaa_Test {
 			WebElement proceed = driver.findElement(By.xpath("//span[text()='Proceed']"));
 			
 			proceed.click();
+
+Exit;
 		}
 
 	}
