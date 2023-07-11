@@ -1,0 +1,72 @@
+package com.selenium;
+
+import java.util.Scanner;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Nykaa_Test {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		System.setProperty("webdriver.chrome.driver",
+				"C:\\Users\\VENKATESAN\\eclipse-workspace\\Java_Selenium\\Chrome_Browser\\chromedriver.exe");
+
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		driver.get("https://www.nykaa.com/");
+		driver.manage().window().maximize();
+
+
+		driver.findElement(By.xpath("//button[text()='Sign in with Mobile / Email']")).click();
+
+		WebElement mobile = driver.findElement(By.xpath("//input[@name='emailMobile']"));
+		mobile.sendKeys("6380820738");
+
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+		Scanner sc = new Scanner(System.in);
+
+		String otp = sc.next();
+		Thread.sleep(15000);
+		WebElement input = driver.findElement(By.xpath("//input[@id='otpField']"));
+		input.sendKeys(otp);
+		WebElement submit = driver.findElement(By.xpath("//button[@type='submit']"));
+		submit.click();
+
+		Actions a = new Actions(driver);
+		WebElement men = driver.findElement(By.xpath("//a[text()='men']"));
+		a.moveToElement(men).build().perform();
+
+		WebElement spf = driver.findElement(By.xpath("(//a[text()='Sunscreen'])[2]"));
+
+		spf.click();
+
+		Set<String> nexttab = driver.getWindowHandles();
+
+		for (String next : nexttab) {
+			driver.switchTo().window(next);
+		}
+
+			String title = driver.getTitle();
+			System.out.println(title);
+			
+		Thread.sleep(3000);
+			WebElement add = driver.findElement(By.xpath("(//span[text()='Add to Bag'])[1]"));
+			
+			add.click();
+			driver.findElement(By.xpath("//button[@class='css-aesrxy']")).click();
+			Thread.sleep(2000);
+			WebElement proceed = driver.findElement(By.xpath("//span[text()='Proceed']"));
+			
+			proceed.click();
+		}
+
+	}
+
+
